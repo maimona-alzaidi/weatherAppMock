@@ -58,8 +58,8 @@ final class WeatherViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: expandedHeaderHeight, left: 0, bottom: 24, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: expandedHeaderHeight, left: 0, bottom: 0, right: 0)
 
-      //  tableView.register(HourlyContainerCell.self, forCellReuseIdentifier: HourlyContainerCell.reuseIdentifier)
-     //   tableView.register(DailyForecastCell.self, forCellReuseIdentifier: DailyForecastCell.reuseIdentifier)
+       tableView.register(HourlyContainerCell.self, forCellReuseIdentifier: HourlyContainerCell.reuseIdentifier)
+      tableView.register(DailyForecastCell.self, forCellReuseIdentifier: DailyForecastCell.reuseIdentifier)
         tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SectionHeaderView.reuseIdentifier)
 
         view.addSubview(tableView)
@@ -120,11 +120,19 @@ extension WeatherViewController: UITableViewDataSource {
 
         switch section {
         case .hourly:
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: HourlyContainerCell.reuseIdentifier,
+                for: indexPath
+            ) as! HourlyContainerCell
+            return cell
 
         case .daily:
-            return UITableViewCell()
-
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: DailyForecastCell.reuseIdentifier,
+                for: indexPath
+            ) as! DailyForecastCell
+            return cell
+            
         case .details:
             return UITableViewCell()
         }
