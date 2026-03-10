@@ -120,10 +120,20 @@ extension WeatherViewController: UITableViewDataSource {
 
         switch section {
         case .hourly:
+
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: HourlyContainerCell.reuseIdentifier,
                 for: indexPath
             ) as! HourlyContainerCell
+
+            let mockItems: [HourlyItemViewData] = [
+                HourlyItemViewData(date: Date(), timeText: "3 PM", temperatureText: "32°", symbolName: "sun.max", precipitationText: "0%"),
+                HourlyItemViewData(date: Date(), timeText: "4 PM", temperatureText: "31°", symbolName: "sun.max", precipitationText: "0%"),
+                HourlyItemViewData(date: Date(), timeText: "5 PM", temperatureText: "30°", symbolName: "cloud.sun", precipitationText: "10%")
+            ]
+
+            cell.configure(items: mockItems)
+
             return cell
 
         case .daily:
