@@ -27,7 +27,13 @@ final class WeatherViewController: UIViewController {
 
     private let headerView = WeatherHeaderView()
     private let tableView = UITableView(frame: .zero, style: .plain)
-
+    
+    private let detailItems: [WeatherDetailItem] = [
+        WeatherDetailItem(title: "Wind", value: "12 km/h", subtitle: "Light breeze"),
+        WeatherDetailItem(title: "Humidity", value: "48%", subtitle: "Comfortable"),
+        WeatherDetailItem(title: "UV Index", value: "5", subtitle: "Moderate"),
+        WeatherDetailItem(title: "Rain", value: "0 mm", subtitle: "No rain expected")
+    ]
     private let expandedHeaderHeight: CGFloat = 220
 
     override func viewDidLoad() {
@@ -60,6 +66,7 @@ final class WeatherViewController: UIViewController {
 
        tableView.register(HourlyContainerCell.self, forCellReuseIdentifier: HourlyContainerCell.reuseIdentifier)
       tableView.register(DailyForecastCell.self, forCellReuseIdentifier: DailyForecastCell.reuseIdentifier)
+        tableView.register(DetailPairCell.self, forCellReuseIdentifier: DetailPairCell.reuseIdentifier)
         tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SectionHeaderView.reuseIdentifier)
 
         view.addSubview(tableView)
@@ -108,7 +115,7 @@ extension WeatherViewController: UITableViewDataSource {
         case .daily:
             return 3
         case .details:
-            return 2
+            return Int(ceil(Double(detailItems.count) / 2.0))
         }
     }
 
@@ -144,7 +151,17 @@ extension WeatherViewController: UITableViewDataSource {
             return cell
             
         case .details:
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: DetailPairCell.reuseIdentifier,
+                for: indexPath
+            ) as! DetailPairCell
+
+            let firstIndex = indexPath.row * 2
+            let left = detailItems[firstIndex]
+            let right = (firstIndex + 1 < detailItems.count) ? detailItems[firstIndex + 1] : nil
+
+            cell.configure(left: left, right: right)
+            return cell
         }
     }
 }
