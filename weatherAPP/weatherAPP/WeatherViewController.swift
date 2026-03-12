@@ -8,6 +8,7 @@ import UIKit
 
 final class WeatherViewController: UIViewController {
 
+    private let viewModel = WeatherViewModel()
     private enum Section: Int, CaseIterable {
         case hourly
         case daily
@@ -93,10 +94,11 @@ final class WeatherViewController: UIViewController {
 
     private func configureHeader() {
         headerView.configure(
-            city: "Riyadh",
-            temperature: "32°",
-            condition: "Sunny",
-            highLow: "H: 36°  L: 24°"
+            city: viewModel.cityName,
+            temperature: viewModel.temperature,
+            condition: viewModel.condition,
+            highLow: viewModel.highLow
+        
         )
     }
 }
@@ -144,11 +146,43 @@ extension WeatherViewController: UITableViewDataSource {
             return cell
 
         case .daily:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: DailyForecastCell.reuseIdentifier,
-                for: indexPath
-            ) as! DailyForecastCell
-            return cell
+        let cell = tableView.dequeueReusableCell(
+        withIdentifier: DailyForecastCell.reuseIdentifier,
+        for: indexPath
+        ) as! DailyForecastCell
+
+        let mockItems = [
+        DailyItemViewData(
+        date: Date(),
+        weekdayText: "Today",
+        lowText: "24°",
+        highText: "36°",
+        symbolName: "sun.max",
+        normalizedStart: 0.2,
+        normalizedEnd: 0.8
+        ),
+        DailyItemViewData(
+        date: Date().addingTimeInterval(86400),
+        weekdayText: "Tue",
+        lowText: "22°",
+        highText: "34°",
+        symbolName: "cloud.sun",
+        normalizedStart: 0.3,
+        normalizedEnd: 0.7
+        ),
+        DailyItemViewData(
+        date: Date().addingTimeInterval(172800),
+        weekdayText: "Wed",
+        lowText: "20°",
+        highText: "30°",
+        symbolName: "cloud.rain",
+        normalizedStart: 0.4,
+        normalizedEnd: 0.6
+        )
+        ]
+
+            cell.configure(with: mockItems[indexPath.row])
+        return cell
             
         case .details:
             let cell = tableView.dequeueReusableCell(
