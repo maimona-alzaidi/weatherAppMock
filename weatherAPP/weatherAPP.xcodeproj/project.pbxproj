@@ -34,6 +34,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				services/GeocodingServicing.swift,
 			);
 			target = D07A83412F5D82AC00F663BE /* weatherAPP */;
 		};
