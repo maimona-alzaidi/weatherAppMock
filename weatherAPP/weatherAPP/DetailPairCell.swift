@@ -32,13 +32,11 @@ final class DetailPairCell: UITableViewCell {
         }
     }
 
-    
     private func setupView() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         selectionStyle = .none
 
-        
         horizontalStack.translatesAutoresizingMaskIntoConstraints = false
         horizontalStack.axis = .horizontal
         horizontalStack.spacing = 12
@@ -52,11 +50,9 @@ final class DetailPairCell: UITableViewCell {
             horizontalStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
             horizontalStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             horizontalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
             horizontalStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
             leftCard.heightAnchor.constraint(equalToConstant: 132)
         ])
     }
     
 }
-

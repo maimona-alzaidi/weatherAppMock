@@ -88,4 +88,3 @@ extension HourlyContainerCell: UICollectionViewDataSource, UICollectionViewDeleg
         onItemSelected?(items[indexPath.item].date)
     }
 }
-
